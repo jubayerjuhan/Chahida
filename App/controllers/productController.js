@@ -9,8 +9,8 @@ exports.addProduct = catchAsyncError(async (req, res, next) => {
     purchasePrice,
     salePrice,
     image,
-    categoryId,
-    categoryName } = req.body;
+    category,
+  } = req.body;
 
   if (image) {
     cloundinary.uploader.upload(image, async (err, result) => {
@@ -21,8 +21,7 @@ exports.addProduct = catchAsyncError(async (req, res, next) => {
         name,
         image: result.url,
         stock: 0,
-        categoryId,
-        categoryName,
+        category,
         purchasePrice,
         salePrice,
       });

@@ -9,11 +9,13 @@ exports.registerUser = catchAsyncError(async (req, res, next) => {
   const { name, email, password } = req.body;
   if (await User.findOne({ email })) return next(new ErrorHandler('Email already exists', 400));
 
-  const user = await User.create({
+  const { _id } = await User.create({
     name,
     email,
     password
-  })
+  });
+
+  const user = await User.findById(_id);
   sendJwtToken(200, user, res);
 })
 
@@ -26,8 +28,11 @@ exports.login = catchAsyncError(async (req, res, next) => {
   if (!user) return next(new ErrorHandler('Invalid email or password', 400));
 
   const isValid = await user.validatePassword(password);
+
+  const fetchUser = await User.findById(user._id);
+
   if (isValid) {
-    sendJwtToken(200, user, res);
+    sendJwtToken(200, fetchUser, res);
   } else {
     next(new ErrorHandler('Invalid email or password', 400));
   }
@@ -121,3 +126,17 @@ exports.updateProfilePicture = catchAsyncError(async (req, res, next) => {
 //     post
 //   });
 // })
+
+exports.loadUser = catchAsyncError(async (req, res, next) => {
+  console.log(req.user)
+
+  const user = await User.findById(req.user).select('-password');
+  if (!user) return next(new ErrorHandler('User Not Found', 400));
+
+  res.status(200).json({
+    success: true,
+    user
+  });
+
+
+})
