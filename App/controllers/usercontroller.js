@@ -128,8 +128,6 @@ exports.updateProfilePicture = catchAsyncError(async (req, res, next) => {
 // })
 
 exports.loadUser = catchAsyncError(async (req, res, next) => {
-  console.log(req.user)
-
   const user = await User.findById(req.user).select('-password');
   if (!user) return next(new ErrorHandler('User Not Found', 400));
 

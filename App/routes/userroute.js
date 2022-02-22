@@ -10,6 +10,6 @@ router.route('/forget-password').post(forgetPassword)
 router.route('/reset-password/:token').put(resetPassword)
 router.route('/update-bio').put(authorizeAdmin, authorizeUser, updateBio)
 router.route('/update-profile-picture').put(authorizeUser, updateProfilePicture)
-router.route('/me').get(authorizeAdmin, authorizeUser, loadUser)
+router.route('/me').get(authorizeUser, loadUser)
 
 module.exports = router;

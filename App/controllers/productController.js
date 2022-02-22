@@ -31,6 +31,20 @@ exports.addProduct = catchAsyncError(async (req, res, next) => {
         product,
       })
     })
+  } else {
+
+    const product = new Product({
+      name,
+      stock: 0,
+      category,
+      purchasePrice,
+      salePrice,
+    });
+    await product.save();
+    res.status(201).json({
+      success: true,
+      product,
+    })
   }
 })
 

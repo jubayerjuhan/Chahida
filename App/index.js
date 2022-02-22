@@ -27,10 +27,11 @@ app.use('/api/v1', product)
 app.use('/api/v1', sale)
 app.use('/api/v1', expense)
 
+
 // catch error
 app.use(error)
 
 // start the server
-app.listen(process.env.PORT, () => {
+app.listen(process.env.PORT || 4000, () => {
   console.log('Server is running on port 4000');
 })
