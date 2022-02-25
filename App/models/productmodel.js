@@ -18,10 +18,6 @@ const productSchema = new mongoose.Schema({
     ref: 'category',
     required: true,
   },
-  categoryName: {
-    type: String,
-    required: true
-  },
   purchasePrice: {
     type: Number,
     required: true,
