@@ -26,6 +26,10 @@ const saleSchema = new mongoose.Schema({
       },
     }
   ],
+  purchasePrice: {
+    type: Number,
+    required: true,
+  },
   priceBreakdown: {
     subtotal: {
       type: Number,

@@ -2,6 +2,7 @@ const Product = require("../models/productmodel.js");
 const catchAsyncError = require("../Utils/catchAsyncError.js");
 const { cloundinary } = require("../Utils/cloudinary.js");
 const mongoose = require("mongoose");
+const { find } = require("../models/productmodel.js");
 
 exports.addProduct = catchAsyncError(async (req, res, next) => {
   const {
@@ -94,6 +95,18 @@ exports.updateProduct = catchAsyncError(async (req, res, next) => {
     success: true,
     product,
   });
+})
+
+exports.getProductWithCategory = catchAsyncError(async (req, res, next) => {
+  const { categoryId } = req.query;
+  console.log(categoryId)
+  const products = await Product.find({ category: categoryId })
+
+  res.status(200).json({
+    success: true,
+    products
+  })
+
 })
 
 

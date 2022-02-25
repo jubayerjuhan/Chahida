@@ -4,6 +4,7 @@ const catchAsyncError = require("../Utils/catchAsyncError.js");
 exports.addSale = catchAsyncError(async (req, res, next) => {
   const {
     customerType,
+    purchasePrice,
     name,
     paymentMethod,
     saleItems,
@@ -14,6 +15,7 @@ exports.addSale = catchAsyncError(async (req, res, next) => {
   const sale = new Sale({
     customerType,
     name,
+    purchasePrice,
     paymentMethod,
     saleItems,
     priceBreakdown,
@@ -37,7 +39,7 @@ exports.getAllSale = catchAsyncError(async (req, res, next) => {
     const endOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
 
     const sale = await Sale.find({ createdAt: { $gte: startOfToday, $lt: endOfToday } }).populate("saleItems.product");
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       sale,
     });
@@ -48,7 +50,7 @@ exports.getAllSale = catchAsyncError(async (req, res, next) => {
     day.setDate(day.getDate() - 7);
 
     const sale = await Sale.find({ createdAt: { $gte: day } }).populate("saleItems.product");
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       sale,
     });
@@ -60,12 +62,11 @@ exports.getAllSale = catchAsyncError(async (req, res, next) => {
     console.log(day);
 
     const sale = await Sale.find({ createdAt: { $gte: day } }).populate("saleItems.product");
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       sale,
     });
   }
-
 
   const sale = await Sale.find().populate("saleItems.product");
   res.status(201).json({
