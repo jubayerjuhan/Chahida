@@ -28,7 +28,7 @@ const saleSchema = new mongoose.Schema({
   ],
   purchasePrice: {
     type: Number,
-    required: true,
+    required: true
   },
   priceBreakdown: {
     subtotal: {

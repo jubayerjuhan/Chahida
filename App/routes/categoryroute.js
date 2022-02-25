@@ -4,6 +4,6 @@ const { authorizeUser, authorizeAdmin } = require('../middleware/authorizeUser.j
 const router = express.Router();
 
 router.route('/category/new').post(authorizeUser, authorizeAdmin, addCategory)
-// router.route('/category/all').get(authorizeUser, authorizeAdmin, getAllCategory)
+router.route('/category/all').get(authorizeUser, authorizeAdmin, getAllCategory)
 
 module.exports = router;
