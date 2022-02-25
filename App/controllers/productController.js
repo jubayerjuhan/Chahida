@@ -11,6 +11,7 @@ exports.addProduct = catchAsyncError(async (req, res, next) => {
     salePrice,
     image,
     category,
+    categoryName
   } = req.body;
 
   if (image) {
@@ -25,6 +26,7 @@ exports.addProduct = catchAsyncError(async (req, res, next) => {
         category,
         purchasePrice,
         salePrice,
+        categoryName
       });
       await product.save();
       res.status(201).json({
